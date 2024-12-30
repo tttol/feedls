@@ -7,7 +7,7 @@ export default function App() {
     const [rss, setRss] = useState<string>();
 
     const fetch = async () => {
-        const response = await client.queries.getRss({ name: "test function" });
+        const response = await client.queries.fetchRss({ name: "test function" });
         return response;
     };
 
@@ -23,7 +23,7 @@ export default function App() {
     return (
         <>
             <h1>Hello Feedls</h1>
-            <p>getRss: {rss}</p> 
+            <p>fetchRss: {rss}</p> 
         </>
     );
 }
