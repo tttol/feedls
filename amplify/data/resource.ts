@@ -1,5 +1,5 @@
 import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
-import { fetchRss } from '../functions/get-rss/resource';
+import { fetchRss } from '../functions/fetch-rss/resource';
 
 const schema = a.schema({
   fetchRss: a

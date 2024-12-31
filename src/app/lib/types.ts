@@ -21,17 +21,17 @@ export interface Item {
     enclosure: Enclosure;
 }
 
-export interface Guid {
+interface Guid {
     "#text": string;
     "@_isPermaLink": string;
 }
 
-export interface Enclosure {
+interface Enclosure {
     "@_url": string;
     "@_type": string;
     "@_length": string;
 }
 
-export interface BlogData {
+interface BlogData {
     channel: Channel;
 }
