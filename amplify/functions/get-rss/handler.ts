@@ -1,4 +1,5 @@
 import { XMLParser } from 'fast-xml-parser';
+import { Rss } from '../../../src/app/lib/types';
 import { Schema } from '../../data/resource';
 
 export const handler: Schema["fetchRss"]["functionHandler"] = async (event, context) => {
@@ -26,7 +27,7 @@ const fetchRss: any = async (url: string) => {
   return responseText;
 }
 
-export const parseXml = (xml: string): { [key: string]: any } => {
+export const parseXml = (xml: string): Rss => {
   const parser = new XMLParser({
     ignoreAttributes: false, 
     attributeNamePrefix: "@_", 
@@ -46,5 +47,5 @@ export const parseXml = (xml: string): { [key: string]: any } => {
   const result: { [key: string]: any } = {};
   result[rootKey] = root;
   console.debug("result:", JSON.stringify(result));
-  return result;
+  return result as Rss;
 };

@@ -10,7 +10,7 @@ const schema = a.schema({
     .returns(a.string())
     .authorization((allow) => [allow.guest()])
     .handler(a.handler.function(fetchRss)),
-  Rss: a
+  Article: a
     .model({
       title: a.string(),
       link: a.string(),
