@@ -7,7 +7,7 @@ export const handler: Schema["fetchRss"]["functionHandler"] = async (event, cont
   for (const u of urls) {
     const responseXml = await fetchRss(u);
     const obj = parseXml(responseXml);
-    console.debug("obj:", obj["entry"]);
+    console.debug("obj:", obj);
     ret.push(obj);
   }
 
@@ -30,6 +30,7 @@ export const parseXml = (xml: string): { [key: string]: any } => {
   const parser = new XMLParser({
     ignoreAttributes: false, 
     attributeNamePrefix: "@_", 
+    ignoreDeclaration: true, // ignore `<?xml version="1.0" encoding="UTF-8" standalone="no"?>` in top of xml file
   });
 
   const obj = parser.parse(xml);
