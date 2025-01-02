@@ -14,14 +14,18 @@ const schema = a.schema({
     .model({
       title: a.string(),
       link: a.string(),
-      ai_summary: a.string(),
-      is_read: a.boolean(),
-      is_deleted: a.boolean(),
-      published_at: a.string(),
-      updated_at: a.string(),
-      fetched_at: a.string(),
+      aiSummary: a.string(),
+      isRead: a.boolean(),
+      isDeleted: a.boolean(),
+      publishedAt: a.string(),
+      fetchedAt: a.string(),
     })
-    .authorization((allow) => [allow.authenticated()]),
+    .authorization((allow) => [allow.guest()]),
+  FetchedHistory: a
+    .model({
+      fetchedAt: a.string(),
+    })
+    .authorization((allow) => [allow.guest()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -31,4 +35,7 @@ export const data = defineData({
   authorizationModes: {
     defaultAuthorizationMode: 'iam',
   },
+  functions: {
+    fetchRss: fetchRss
+  }
 });
