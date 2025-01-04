@@ -1,4 +1,9 @@
-export interface Rss {
+export interface RssObj {
+    rss: Rss;
+}
+
+interface Rss {
+    "@_version": string,
     channel: Channel;
 }
 
