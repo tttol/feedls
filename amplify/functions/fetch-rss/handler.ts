@@ -13,18 +13,19 @@ const client = generateClient<Schema>();
 export const handler: Handler = async (event: any, context: any) => {
   console.debug("event:", event, "context", context);
   const urls = ["https://konifar-zatsu.hatenadiary.jp/rss"];
-  const currentTimeStr: string = new Date().toISOString();
+  const currentTime: Date = new Date();
   const lastFetchedTime: Date = await getLastFetchedTime();
   console.debug("lastFetchedTime:", lastFetchedTime);
+
 
   for (const u of urls) {
     const responseXml: string = await fetchRss(u);
     const rss: RssObj = parseXml(responseXml);
-
-    putArticles(rss, currentTimeStr, lastFetchedTime);
+    await putArticle(rss, currentTime, lastFetchedTime);
+    // batchPutArticles(rss, currentTimeStr, lastFetchedTime);
   }
 
-  wirteLastFetchedTime();
+  await wirteLastFetchedTime();
   return "ok";
 };
 
@@ -39,13 +40,38 @@ const getLastFetchedTime: () => Promise<Date> = async () => {
   return new Date(data.createdAt);
 }
 
-const wirteLastFetchedTime = () => {
-  client.models.FetchedHistory.update({
+const wirteLastFetchedTime = async () => {
+  await client.models.FetchedHistory.update({
     id: "1"
   });
 }
 
-const putArticles = (rssObj: RssObj, currentTimeStr: string, lastFetchedTime: Date) => {
+const putArticle = async(rssObj: RssObj, currentTime: Date, lastFetchedTime: Date) => {
+  const siteName = rssObj.rss.channel.title;
+  for (const item of rssObj.rss.channel.item) {
+    console.debug(new Date(item.pubDate), lastFetchedTime, new Date(item.pubDate) <= lastFetchedTime);
+    if (new Date(item.pubDate) <= lastFetchedTime) continue;
+
+    try {
+      await client.models.Article.create({
+        siteName: siteName,
+        title: item.title,
+        link: item.link,
+        aiSummary: "",
+        isRead: false,
+        isDeleted: false,
+        publishedAt: item.pubDate,
+        fetchedAt: currentTime.toISOString(),
+      });
+      console.debug("Article has been put into DynamoDB.", item);
+    } catch (e) {
+      console.error("Failed to put article.", item, e);
+      continue;
+    }
+  }
+}
+
+const batchPutArticles = (rssObj: RssObj, currentTimeStr: string, lastFetchedTime: Date) => {
   const items: Item[] = rssObj.rss.channel.item;
   let index = 0;
   while (index < items.length) {

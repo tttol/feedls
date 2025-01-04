@@ -28,26 +28,26 @@ const schema = a.schema({
     })
     .authorization((allow) => [allow.guest()]),
 
-  batchPutItemToArticles: a
-    .mutation()
-    .arguments({
-      siteName: a.string(),
-      title: a.string(),
-      link: a.string(),
-      aiSummary: a.string(),
-      isRead: a.boolean(),
-      isDeleted: a.boolean(),
-      publishedAt: a.string(),
-      fetchedAt: a.string(),
-    })
-    .returns(a.ref("Article"))
-    .authorization(allow => [allow.guest()])
-    .handler(
-      a.handler.custom({
-        dataSource: "ExternalPostTableDataSource",
-        entry: "./batchPutItemToArticles.js",
-      })
-    ),
+  // batchPutItemToArticles: a
+  //   .mutation()
+  //   .arguments({
+  //     siteName: a.string(),
+  //     title: a.string(),
+  //     link: a.string(),
+  //     aiSummary: a.string(),
+  //     isRead: a.boolean(),
+  //     isDeleted: a.boolean(),
+  //     publishedAt: a.string(),
+  //     fetchedAt: a.string(),
+  //   })
+  //   .returns(a.ref("Article"))
+  //   .authorization(allow => [allow.guest()])
+  //   .handler(
+  //     a.handler.custom({
+  //       dataSource: "ExternalPostTableDataSource",
+  //       entry: "./batchPutItemToArticles.js",
+  //     })
+  //   ),
 });
 
 export type Schema = ClientSchema<typeof schema>;
