@@ -12,19 +12,21 @@ const schema = a.schema({
     .handler(a.handler.function(fetchRss)),
   Article: a
     .model({
-      siteName: a.string(),
-      title: a.string(),
-      link: a.string(),
+      siteName: a.string().required(),
+      title: a.string().required(),
+      link: a.string().required(),
+      enclosureUrl: a.url(),
+      enclosureType: a.string(),
       aiSummary: a.string(),
-      isRead: a.boolean(),
-      isDeleted: a.boolean(),
-      publishedAt: a.string(),
-      fetchedAt: a.string(),
+      isRead: a.boolean().required(),
+      isDeleted: a.boolean().required(),
+      publishedAt: a.string().required(),
+      fetchedAt: a.string().required(),
     })
     .authorization((allow) => [allow.guest()]),
   FetchedHistory: a
     .model({
-      fetchedAt: a.string(),
+      fetchedAt: a.string().required(),
     })
     .authorization((allow) => [allow.guest()]),
 
@@ -57,7 +59,4 @@ export const data = defineData({
   authorizationModes: {
     defaultAuthorizationMode: 'iam',
   },
-  functions: {
-    fetchRss: fetchRss
-  }
 });
