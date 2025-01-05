@@ -1,33 +1,50 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Schema } from "../../../amplify/data/resource";
 import { generateAmplifyClient } from "../lib/client";
 import AppVersion from "./AppVersion";
-import Article from "./Article";
+import List from "./List";
 
 export default function App() {
   const client = generateAmplifyClient();
   const [articles, setArticles] = useState<Schema["Article"]["type"][]>([]);
+  const [filteredArticles, setFilteredArticles] = useState<Schema["Article"]["type"][]>([]);
   const [siteNames, setSiteNames] = useState<string[]>([]);
+  const [selectedSiteName, setSelectedSiteName] = useState<string>("all");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const fetchArticles = async () => {
-    const { errors, data } = await client.models.Article.list({});
+    const { errors, data } = await client.models.Article.list({
+      limit: 10000,
+    });
     if (errors !== undefined || data == null) {
       console.error("error:", errors, "data:", data);
       throw new Error("Failed to get Article.")
     }
     setArticles(data);
-
-    const siteNames = [...new Set(data.map(d => d.siteName))];
-    setSiteNames(siteNames);
+    setSiteNames([...new Set(data.map(d => d.siteName))]);
+    setFilteredArticles(filterArticles(selectedSiteName));
   };
-
+  
   useEffect(() => {
     fetchArticles();
-  }, []);
+  }, [selectedSiteName, articles]);
 
+
+  const filterArticles = (siteName: string) => siteName === "all" ? articles : articles.filter(a => a.siteName === siteName);
+
+  /////////// onClick ///////////
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const filter = (e: React.MouseEvent<HTMLDivElement>) => {
+    const siteName = (e.target as HTMLDivElement).dataset.sitename;
+    if (siteName) {
+      setSelectedSiteName(siteName);
+      toggleMenu();
+    } else {
+      alert("要素取得に失敗");
+    }
+  };
 
   return (
     <>
@@ -49,14 +66,12 @@ export default function App() {
         <ul className="p-4 space-y-2">
           {siteNames.map(s => (
             <li key={s}>
-              <a href="#" className="block text-gray-800 hover:text-blue-500">{s}</a>
+              <div className="" onClick={filter} data-sitename={s}>{s}</div>
             </li>
           ))}
         </ul>
       </div>
-      {articles.map(a => (
-        <Article article={a} key={a.id}></Article>
-      ))}
+      <List articles={filteredArticles}></List>
     </>
   );
 }
