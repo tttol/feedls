@@ -1,7 +1,7 @@
 import { Schema } from "../../../amplify/data/resource";
 import Article from "./Article";
 
-export default function List({ articles }: { articles: Schema["Article"]["type"][] }) {
+export default function ArticleList({ articles }: { articles: Schema["Article"]["type"][] }) {
   return (
     <>
       {

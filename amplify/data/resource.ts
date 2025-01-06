@@ -29,6 +29,12 @@ const schema = a.schema({
       fetchedAt: a.string().required(),
     })
     .authorization((allow) => [allow.guest()]),
+  ReadingList: a
+    .model({
+      title: a.string().required(),
+      url: a.url().required(),
+    })
+    .authorization((allow) => [allow.guest()]),
 
   // batchPutItemToArticles: a
   //   .mutation()
