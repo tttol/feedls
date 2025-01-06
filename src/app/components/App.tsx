@@ -10,7 +10,7 @@ export default function App() {
   const [articles, setArticles] = useState<Schema["Article"]["type"][]>([]);
   const [filteredArticles, setFilteredArticles] = useState<Schema["Article"]["type"][]>([]);
   const [siteNames, setSiteNames] = useState<string[]>([]);
-  const [selectedSiteName, setSelectedSiteName] = useState<string>("all");
+  const [selectedSiteName, setSelectedSiteName] = useState<string>("ALL");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const fetchArticles = async () => {
@@ -25,13 +25,13 @@ export default function App() {
     setSiteNames([...new Set(data.map(d => d.siteName))]);
     setFilteredArticles(filterArticles(selectedSiteName));
   };
-  
+
   useEffect(() => {
     fetchArticles();
   }, [selectedSiteName, articles]);
 
 
-  const filterArticles = (siteName: string) => siteName === "all" ? articles : articles.filter(a => a.siteName === siteName);
+  const filterArticles = (siteName: string) => siteName === "ALL" ? articles : articles.filter(a => a.siteName === siteName);
 
   /////////// onClick ///////////
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -59,6 +59,9 @@ export default function App() {
         </div>
       </header>
       <AppVersion></AppVersion>
+      <div className="border-b-[1px] border-b-slate-600 text-center text-4xl p-2">
+        {selectedSiteName}
+      </div>
       <div
         className={`absolute left-0 top-12 w-48 bg-white border rounded shadow-lg transform transition-all duration-300 ease-in-out ${isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
           }`}

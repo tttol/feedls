@@ -5,9 +5,11 @@ export default function List({ articles }: { articles: Schema["Article"]["type"]
   return (
     <>
       {
-        articles.map(a => (
-          <Article article={a} key={a.id}></Article>
-        ))
+        articles
+          .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+          .map(a => (
+            <Article article={a} key={a.id}></Article>
+          ))
       }
     </>
   );
