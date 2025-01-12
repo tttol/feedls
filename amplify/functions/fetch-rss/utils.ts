@@ -10,7 +10,6 @@ export const fetchRss: any = async (url: string) => {
   }
 
   const responseText: string = await response.text();
-  console.debug("responseText:", responseText);
   return responseText;
 }
 
@@ -28,13 +27,6 @@ export const parseXml = (xml: string): RssObj => {
   }
 
   return obj as RssObj;
-  // const rootKey = Object.keys(obj)[0];
-  // const root = obj[rootKey];
-
-  // const result: { [key: string]: any } = {};
-  // result[rootKey] = root;
-  // console.debug("result:", JSON.stringify(result));
-  // return result as Rss;
 };
 
 

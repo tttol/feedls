@@ -18,7 +18,6 @@ export default function Admin() {
       throw new Error("Failed to get ReadingList.");
     }
 
-    console.debug(data);
     setReadingList(data);
   }
 
@@ -30,6 +29,7 @@ export default function Admin() {
     <>
       <Header hasHamburger={false}></Header>
       <AppVersion></AppVersion>
+      <div className="text-left text-4xl font-bold p-3">Reading list</div>
       <ReadgingList readingList={readingList}></ReadgingList>
     </>
   );
