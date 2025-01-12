@@ -1,8 +1,8 @@
 import { util } from "@aws-appsync/utils";
 import { XMLParser } from "fast-xml-parser";
-import { Item, RssObj } from "../../../src/app/lib/types";
+import { Item, RssObj } from "./types";
 
-export const fetchRss: any = async (url: string) => {
+export const fetchRss: (url: string) => Promise<string> = async (url: string) => {
   console.debug("Request URL:", url);
   const response = await fetch(url);
   if (!response.ok) {

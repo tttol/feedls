@@ -3,8 +3,8 @@ import { Amplify } from "aws-amplify";
 import { generateClient } from "aws-amplify/data";
 import { Handler } from 'aws-cdk-lib/aws-lambda';
 import { Item, RssObj } from '../../../src/app/lib/types';
+import { fetchRss, generateDataUnit, parseXml } from "../../../src/app/lib/utils";
 import { Schema } from '../../data/resource';
-import { fetchRss, generateDataUnit, parseXml } from "./utils";
 
 // const client = generateAmplifyClient();
 Amplify.configure(outputs);

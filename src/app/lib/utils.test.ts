@@ -1,5 +1,5 @@
 import { assert, describe, it, vi } from "vitest";
-import { Item, RssObj } from "../../../src/app/lib/types";
+import { Item, RssObj } from "./types";
 import { generateDataUnit, parseXml } from "./utils";
 
 vi.mock("@aws-appsync/utils", () => ({
