@@ -1,4 +1,6 @@
 "use client";
+import { Authenticator } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
 import React, { useEffect, useState } from "react";
 import { Schema } from "../../../amplify/data/resource";
 import { generateAmplifyClient } from "../lib/client";
@@ -51,14 +53,16 @@ export default function App() {
   return (
     <>
       <Header hasHamburger={true} onClickFn={toggleMenu}></Header>
-      <AppVersion></AppVersion>
-      <div>
-        <div className="border-b-[1px] border-b-slate-600 text-center text-4xl p-2">
-          {selectedSiteName}
+      <Authenticator hideSignUp className="mt-4">
+        <AppVersion></AppVersion>
+        <div>
+          <div className="border-b-[1px] border-b-slate-600 text-center text-4xl p-2">
+            {selectedSiteName}
+          </div>
         </div>
-      </div>
-      <Menu isMenuOpen={isMenuOpen} siteNames={siteNames} onClickFn={filter}></Menu>
-      <ArticleList articles={filteredArticles}></ArticleList>
+        <Menu isMenuOpen={isMenuOpen} siteNames={siteNames} onClickFn={filter}></Menu>
+        <ArticleList articles={filteredArticles}></ArticleList>
+      </Authenticator>
     </>
   );
 }
