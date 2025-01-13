@@ -24,7 +24,7 @@ export default function App() {
       throw new Error("Failed to get Article.")
     }
     setArticles(data);
-    setSiteNames([...new Set(data.map(d => d.siteName))]);
+    setSiteNames(["ALL", ...new Set(data.map(d => d.siteName))]);
     setFilteredArticles(filterArticles(selectedSiteName));
   };
 
@@ -52,8 +52,10 @@ export default function App() {
     <>
       <Header hasHamburger={true} onClickFn={toggleMenu}></Header>
       <AppVersion></AppVersion>
-      <div className="border-b-[1px] border-b-slate-600 text-center text-4xl p-2">
-        {selectedSiteName}
+      <div>
+        <div className="border-b-[1px] border-b-slate-600 text-center text-4xl p-2">
+          {selectedSiteName}
+        </div>
       </div>
       <Menu isMenuOpen={isMenuOpen} siteNames={siteNames} onClickFn={filter}></Menu>
       <ArticleList articles={filteredArticles}></ArticleList>
