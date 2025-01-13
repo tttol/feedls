@@ -5,12 +5,14 @@ const schema = z.object({
     .string({
       required_error: "URL is required.",
     })
-    .trim(),
+    .trim()
+    .min(1, "URL is required."), // 空白のみの場合もエラー
   title: z
     .string({
       required_error: "Title is required."
     })
-    .trim(),
+    .trim()
+    .min(1, "Title is required."), // 空白のみの場合もエラー
 });
 
 export const validateForm = (formData: FormData) => {
