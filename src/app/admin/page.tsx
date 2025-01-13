@@ -1,4 +1,6 @@
 "use client"
+import { Authenticator } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
 import { useEffect, useState } from "react";
 import { Schema } from "../../../amplify/data/resource";
 import AppVersion from "../components/AppVersion";
@@ -28,9 +30,11 @@ export default function Admin() {
   return (
     <>
       <Header hasHamburger={false}></Header>
-      <AppVersion></AppVersion>
-      <div className="text-left text-4xl font-bold p-3">Reading list</div>
-      <ReadgingList readingList={readingList}></ReadgingList>
+      <Authenticator hideSignUp className="mt-4">
+        <AppVersion></AppVersion>
+        <div className="text-left text-4xl font-bold p-3">Reading list</div>
+        <ReadgingList readingList={readingList}></ReadgingList>
+      </Authenticator>
     </>
   );
 }
