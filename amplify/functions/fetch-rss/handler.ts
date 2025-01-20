@@ -1,10 +1,10 @@
-import outputs from "@/../../amplify_outputs.json";
 import { Amplify } from "aws-amplify";
 import { generateClient } from "aws-amplify/data";
 import { Handler } from 'aws-cdk-lib/aws-lambda';
 import { RssObj } from '../../../src/app/lib/types';
 import { fetchRss, parseXml } from "../../../src/app/lib/utils";
 import { Schema } from '../../data/resource';
+import outputs from "./../../../amplify_outputs.json";
 
 Amplify.configure(outputs);
 const client = generateClient<Schema>();
