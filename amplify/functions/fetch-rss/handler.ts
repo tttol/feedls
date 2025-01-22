@@ -5,7 +5,6 @@ import { Handler } from 'aws-cdk-lib/aws-lambda';
 import { getLastFetchedTime, putArticle, wirteLastFetchedTime } from "../../../src/app/lib/ddb";
 import { RssObj } from '../../../src/app/lib/types';
 import { fetchRss, parseXml } from "../../../src/app/lib/utils";
-// import { Schema } from '../../data/resource';
 
 // Amplify.configure(outputs);
 // const client = generateClient<Schema>();
