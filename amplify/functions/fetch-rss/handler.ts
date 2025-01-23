@@ -11,10 +11,6 @@ const {resourceConfig, libraryOptions} = await getAmplifyDataClientConfig(env);
 Amplify.configure(resourceConfig, libraryOptions);
 const client = generateClient<Schema>();
 
-// const ARTICLE = env.TABLE_ARTICLE;
-// const FETCHED_HISTORY = env.TABLE_FETCHED_HISTORY;
-// const READING_LIST = env.TABLE_READING_LIST;
-
 export const handler: Handler = async (event: any, context: any) => {
   console.debug("event:", event, "context", context);
   const urls = ["https://konifar-zatsu.hatenadiary.jp/rss", "https://blog.jnito.com/rss"];
