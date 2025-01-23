@@ -8,7 +8,7 @@ const schema = a.schema({
       name: a.string(),
     })
     .returns(a.string())
-    .authorization((allow) => [allow.guest()])
+    .authorization((allow) => [allow.authenticated()])
     .handler(a.handler.function(fetchRss)),
   Article: a
     .model({
@@ -23,18 +23,18 @@ const schema = a.schema({
       publishedAt: a.string().required(),
       fetchedAt: a.string().required(),
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [allow.authenticated()]),
   FetchedHistory: a
     .model({
       fetchedAt: a.string().required(),
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [allow.authenticated()]),
   ReadingList: a
     .model({
       title: a.string().required(),
       url: a.url().required(),
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [allow.authenticated()]),
 
   // batchPutItemToArticles: a
   //   .mutation()
@@ -56,13 +56,14 @@ const schema = a.schema({
   //       entry: "./batchPutItemToArticles.js",
   //     })
   //   ),
-});
+})
+.authorization(allow => [allow.resource(fetchRss)]);
 
 export type Schema = ClientSchema<typeof schema>;
 
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'iam',
+    defaultAuthorizationMode: 'userPool',
   },
 });
