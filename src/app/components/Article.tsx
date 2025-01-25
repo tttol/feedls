@@ -19,7 +19,7 @@ export default function Article({ article }: { article: Schema["Article"]["type"
       </div>
       <div className="w-1/4 p-1">
         {article.enclosureType === "image/png" ?
-          <img src={article.enclosureUrl ?? noImage.blurDataURL} alt="OGP" /> :
+          <Image src={article.enclosureUrl ?? noImage.blurDataURL ?? ""} alt="OGP"></Image> :
           <Image src={noImage} alt="next"></Image>}
       </div>
     </div>

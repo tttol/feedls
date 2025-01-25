@@ -36,7 +36,3 @@ interface Enclosure {
     "@_type": string;
     "@_length": string;
 }
-
-interface BlogData {
-    channel: Channel;
-}

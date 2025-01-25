@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Header({ hasHamburger, onClickFn }: { hasHamburger: boolean, onClickFn?: () => void }) {
   return (
     <header className="bg-orange-400 text-white p-4 text-center font-black text-4xl flex items-center">
@@ -7,9 +9,9 @@ export default function Header({ hasHamburger, onClickFn }: { hasHamburger: bool
         </svg>
       </div>}
       <div className="flex-grow text-center">
-        <a href="/">
+        <Link href="/">
           Feedls
-        </a>
+        </Link>
       </div>
       <div className="flex-none">
         <a href="/admin">

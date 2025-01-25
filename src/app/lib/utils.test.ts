@@ -5,7 +5,7 @@ import { generateDataUnit, parseXml } from "./utils";
 vi.mock("@aws-appsync/utils", () => ({
     util: {
         dynamodb: {
-            toMapValues: (input: any) => input,
+            toMapValues: (input: unknown) => input,
         },
     },
 }));

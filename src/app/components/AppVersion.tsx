@@ -1,8 +1,7 @@
-import React from "react";
+import packageJson from "../../../package.json";
 
 export default function AppVersion() {
   const getAppVersion = () => {
-    const packageJson = require("../../../package.json");
     return packageJson.version;
   };
   return (
