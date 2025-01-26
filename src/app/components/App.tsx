@@ -25,6 +25,7 @@ export default function App() {
       console.error("error:", errors, "data:", data);
       throw new Error("Failed to get Article.")
     }
+    console.debug(data);
     setArticles(data);
     setSiteNames(["ALL", ...new Set(data.map(d => d.siteName))]);
     setFilteredArticles(filterArticles(selectedSiteName));
@@ -32,7 +33,7 @@ export default function App() {
 
   useEffect(() => {
     fetchArticles();
-  }, [selectedSiteName, articles]);
+  }, []);
 
 
   const filterArticles = (siteName: string) => siteName === "ALL" ? articles : articles.filter(a => a.siteName === siteName);
